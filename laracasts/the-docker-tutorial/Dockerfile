@@ -19,7 +19,13 @@ EXPOSE 3000
 ENTRYPOINT  ["json-server", "db.json", "--host", "0.0.0.0"]
 
 # Additional commands or options run after the initial ENTRYPOINT command
-#CMD 
+CMD ["db.json"]
 
-# The actual command (local_port:docker_port)
-#docker run --rm -p 3000:3000 047287bb9e61
+# Build docker image
+#docker build . --no-cache -t json_server
+
+# Run docker container using 'json_server' tag
+#docker run --rm -p 3000:3000 json_server
+
+# Overrides CMD line (doesn't work!?)
+#docker run --rm -p 3000:3000 json_server alt.json

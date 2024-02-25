@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "john_doe2",
+      "email": "john@example.com"
+    },
+    {
+      "id": 2,
+      "username": "jane_smith2",
+      "email": "jane@example.com"
+    }
+  ],
+  "products": [
+    {
+      "id": 101,
+      "name": "Widget 2",
+      "price": 19.99,
+      "category": "Electronics"
+    },
+    {
+      "id": 102,
+      "name": "Super Chair 2",
+      "price": 79.99,
+      "category": "Furniture"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "products": [101],
+      "total": 29.99,
+      "orderDate": "2024-02-24"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "products": [102],
+      "total": 89.99,
+      "orderDate": "2024-02-25"
+    }
+  ]
+}
