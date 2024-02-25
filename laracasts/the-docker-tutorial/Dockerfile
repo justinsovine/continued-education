@@ -1,31 +1,12 @@
-FROM node:latest
+FROM nginx:stable-alpine
 
-WORKDIR /home/server
+ENV NGINXUSER=laravel
+ENV NGINXGROUP=laravel
 
-RUN npm install -g json-server
+RUN mkdir -p /var/www/html/public
 
-COPY db.json /home/server/db.json
+ADD nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# This expects a port number and gives our container the ability to map a port from our host machine into the Docker container at the port specified.
-EXPOSE 3000
+RUN sed -i "s/user www-data/user ${NGINXUSER}/g" /etc/nginx/nginx.conf
 
-# ENTRYPOINT is the main command ran by the docker container. This is what the entire container is built for, and basically it's sole purpose. It cannot be overwritten by CMD on the host machine, instead commands are added to it.
-
-# The shell form
-#ENTRYPOINT  /bin/sh -c json-server db.json 
-
-# The exec form
-# Notes: 0.0.0.0 is the default Docker bridge network IP, essentially connecting our host machine to the Docker instance
-ENTRYPOINT  ["json-server", "db.json", "--host", "0.0.0.0"]
-
-# Additional commands or options run after the initial ENTRYPOINT command
-CMD ["db.json"]
-
-# Build docker image
-#docker build . --no-cache -t json_server
-
-# Run docker container using 'json_server' tag
-#docker run --rm -p 3000:3000 json_server
-
-# Overrides CMD line (doesn't work!?)
-#docker run --rm -p 3000:3000 json_server alt.json
+RUN adduser -g ${NGINXGROUP} -s /bin/sh -D ${NGINXUSER}
